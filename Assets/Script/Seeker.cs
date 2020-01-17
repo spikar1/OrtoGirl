@@ -53,7 +53,7 @@ public class Seeker : MonoBehaviour {
 
         while (transform.position != position) {
             print("Is falling");
-            transform.position = Vector3.MoveTowards(transform.position, position, .1f);
+            transform.position = Vector3.MoveTowards(transform.position, position, 1f * Time.deltaTime);
             yield return null;
         }
         ActivateBlock();
@@ -75,7 +75,7 @@ public class Seeker : MonoBehaviour {
     }
     public IEnumerator MoveToNode() {
         while (nextStep < steps) {
-            transform.position = Vector3.MoveTowards(transform.position, grid.path[nextStep].worldPosition, .1f);
+            transform.position = Vector3.MoveTowards(transform.position, grid.path[nextStep].worldPosition, 5f * Time.deltaTime);
             if (transform.position == grid.path[nextStep].worldPosition) {
                 nextStep++;
             }

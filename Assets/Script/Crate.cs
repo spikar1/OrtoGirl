@@ -57,10 +57,8 @@ public class Crate : InteractableBlock
             transform.position += direction.ToVector() * 0.05f;
             yield return new WaitForEndOfFrame();
         }
-        print("For loop done");
         
         if (!grid.NodeFromWorldPoint(transform.position).walkable[(int)direction]) {
-            print("Hello");
             StartCoroutine(MoveToNextNode(orientation));
         }
         else {
