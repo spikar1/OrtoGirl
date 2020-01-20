@@ -31,6 +31,10 @@ public class CameraRoot : MonoBehaviour {
         transform.GetChild(0).GetChild(0).position += transform.GetChild(0).GetChild(0).forward * Input.GetAxis("Mouse ScrollWheel") * 5;
     }
 
+    private void LateUpdate() {
+        
+    }
+
     void Rotate(bool ccw) {
         StartCoroutine(RotateLoop(ccw));
     }
