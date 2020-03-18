@@ -16,7 +16,7 @@ public class Node : IHeapItem<Node> {
 
     public GameObject currentObject = null;
 
-
+    //Uses orientation vector index?
     public bool[] walkable = new bool[6];
 
     public Node(Vector3 _worldPos, int _gridX, int _gridY, int _gridZ)

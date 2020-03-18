@@ -14,8 +14,7 @@ public class Snap : MonoBehaviour
     public bool useParent = false;
 
     public Transform parent;
-
-    [Tooltip("Things will happen")]
+    
     public bool snapPosition = true;
 
     public bool snapRotation = true;
