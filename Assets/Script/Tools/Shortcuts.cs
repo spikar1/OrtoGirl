@@ -56,15 +56,20 @@ namespace SteffenTools.Shortcuts.General {
             ResetScale();
         }
 
-        [MenuItem("SteffenTools/Shortcuts/SnapToGrid        %S")]
+        [MenuItem("SteffenTools/Shortcuts/SnapToGrid        #S")]
         public static void SnapToGrid() {
             var selectedTransforms = Selection.transforms;
 
             //iterate through all selected objects and reset their position
             foreach (var selectedTransform in selectedTransforms) {
                 Undo.RecordObject(selectedTransform, "ResetPosition of " + selectedTransform.name);
-                var originalPosition = selectedTransform.position;
-                selectedTransform.position = new Vector3(Mathf.Round(originalPosition.x), Mathf.Round(originalPosition.y), Mathf.Round(originalPosition.z));
+                var position = selectedTransform.position;
+
+                position += Vector3.one * .5f;
+                position = new Vector3(Mathf.Round(position.x), Mathf.Round(position.y), Mathf.Round(position.z));
+                position -= Vector3.one * .5f;
+
+                selectedTransform.position = position;
 
                 EditorUtility.SetDirty(selectedTransform);
             }
