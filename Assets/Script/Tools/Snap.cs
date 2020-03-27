@@ -25,7 +25,7 @@ public class Snap : MonoBehaviour
 
     public bool snapToGround = false;
 
-    public float gridSize = 1;
+    private float gridSize = 1;
     float gridFactor;
 
     Vector3 inputPos;
@@ -38,8 +38,7 @@ public class Snap : MonoBehaviour
     void Awake()
     {
         enabled = false;
-
-
+        
     }
 
 
@@ -168,7 +167,7 @@ public class Snap : MonoBehaviour
         //}
     }
 
-    public float FindSnapPosition(float pos, float scale, float refPos)
+    public static float FindSnapPosition(float pos, float scale, float refPos)
     {
         if (scale.Odd())
         {
@@ -180,12 +179,36 @@ public class Snap : MonoBehaviour
             }
 
         }
-        else if ((scale * gridFactor).Even())
+        else if ((scale).Even())
         {
             //print("its even");
-            pos = Mathf.Round(pos * gridFactor) / gridFactor;
+            pos = Mathf.Round(pos);
         }
         return pos;
+    }
+
+    public static Vector3 FindSnapPosition(Vector3 position, Vector3 scale) {
+
+
+        var newSnapPosition = Vector3Extensions.Round(10 * position) / (10);
+        var newSnapScale = scale.Round();
+        if (newSnapScale.x % 1 != 0) {
+            newSnapScale.x -= newSnapScale.x % 1;
+        }
+        if (newSnapScale.y % 1 != 0) {
+            newSnapScale.y -= newSnapScale.y % 1;
+        }
+        if (newSnapScale.z % 1 != 0) {
+            newSnapScale.z -= newSnapScale.z % 1;
+        }
+
+
+
+        position.x = Snap.FindSnapPosition(newSnapPosition.x, newSnapScale.x, position.x);
+        position.y = Snap.FindSnapPosition(newSnapPosition.y, newSnapScale.y, position.y);
+        position.z = Snap.FindSnapPosition(newSnapPosition.z, newSnapScale.z, position.z);
+
+        return position;
     }
 
 

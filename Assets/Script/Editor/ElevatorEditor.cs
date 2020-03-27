@@ -23,6 +23,8 @@ public class ElevatorEditor : Editor {
         if (GUILayout.Button("Flip Start Position")) {
             myScript.FlipStartPosition();
         }
+        EditorUtility.SetDirty(target);
+
     }
     public void OnSceneGUI() {
         var t = (target as Elevator);

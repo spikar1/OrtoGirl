@@ -40,6 +40,26 @@ public class GridScript : MonoBehaviour {
         Vector3.back
 };
 
+    public Vector3Int inspectorPosition;
+    private void Update() {
+        var nodeInspector = true;
+
+        if (nodeInspector) {
+            var input = new Vector3Int();
+            input.x += Input.GetKeyDown(KeyCode.A) ? 1 : 0;
+            input.x -= Input.GetKeyDown(KeyCode.D) ? 1 : 0;
+
+            input.y += Input.GetKeyDown(KeyCode.E) ? 1 : 0;
+            input.y -= Input.GetKeyDown(KeyCode.Q) ? 1 : 0;
+
+            input.z += Input.GetKeyDown(KeyCode.W) ? 1 : 0;
+            input.z -= Input.GetKeyDown(KeyCode.S) ? 1 : 0;
+
+            inspectorPosition += input;
+        }
+    }
+
+
     private void Awake() {
         CreateGrid();
     }
@@ -64,8 +84,12 @@ public class GridScript : MonoBehaviour {
                         Vector3 currentOrientation = OrientationVectors[i];
                         Vector3 reversedOrientation = currentOrientation * -1;
                         RaycastHit hit;
-                        if (!Physics.CheckSphere(worldPos, .4f) && Physics.SphereCast(worldPos, .1f, currentOrientation, out hit, 1) && !Physics.Raycast(worldPos + reversedOrientation, currentOrientation, 1))
+                        if (!Physics.CheckSphere(worldPos, .4f) && 
+                            Physics.SphereCast(worldPos, .1f, currentOrientation, out hit, 1) && 
+                            !Physics.Raycast(worldPos + reversedOrientation, currentOrientation, 1)) {
+
                             grid[x, y, z].walkable[i] = true;
+                        }
                         else
                             grid[x, y, z].walkable[i] = false;
                     }
@@ -329,10 +353,10 @@ public class GridScript : MonoBehaviour {
 
     void OnDrawGizmos() {
         Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(new Vector3(gridSizeX * .5f, gridSizeY * .5f, gridSizeZ * .5f), new Vector3(gridSizeX, gridSizeY, gridSizeZ)); 
         if (drawGizmos != true) {
             return;
         }
-        Gizmos.DrawWireCube(new Vector3(gridSizeX * .5f, gridSizeY * .5f, gridSizeZ * .5f), new Vector3(gridSizeX, gridSizeY, gridSizeZ));
 
         if (grid != null) {
             foreach (var n in grid) {
@@ -347,7 +371,7 @@ public class GridScript : MonoBehaviour {
                     }
                 }
                 if (n.currentObject)
-                    Gizmos.DrawSphere(n.worldPosition, .5f);
+                Gizmos.DrawSphere(n.worldPosition, .5f);
                 Gizmos.color = Color.white;
             }
 

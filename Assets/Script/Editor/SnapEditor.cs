@@ -21,7 +21,6 @@ public class SnapEditor : Editor{
         float pickSize = size * 2f;
 
         if (Handles.Button(Zposition, Quaternion.identity, size, pickSize, Handles.CircleHandleCap)) {
-            Debug.Log("The button was pressed!");
             snap.transform.Rotate(Vector3.back, 90, Space.World);
         }
 
@@ -29,7 +28,6 @@ public class SnapEditor : Editor{
         Vector3 Xposition = snap.transform.localPosition + Vector3.right * 1f;
 
         if (Handles.Button(Xposition, Quaternion.Euler(Vector3.right * 90), size, pickSize, Handles.CircleHandleCap)){
-            Debug.Log("The button was pressed!");
             snap.transform.Rotate(Vector3.down, 90, Space.World);
         }
 
@@ -37,7 +35,6 @@ public class SnapEditor : Editor{
         Vector3 Yposition = snap.transform.localPosition + Vector3.forward * 1f;
 
         if (Handles.Button(Yposition, Quaternion.Euler(Vector3.up * 90), size, pickSize, Handles.CircleHandleCap)) {
-            Debug.Log("The button was pressed!");
             snap.transform.Rotate(Vector3.left, 90, Space.World);
         }
     }
