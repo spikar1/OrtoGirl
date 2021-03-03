@@ -3,8 +3,9 @@ using System.Collections;
 
 [AddComponentMenu("Interactables/Rotator")]
 public class Rotator : InteractableBlock {
-    [Range(.01f,45)]
-    public float speed = 1;
+    [Min(1f)]
+    [Tooltip("Degrees per second")]
+    public float speed = 90;
     public int times = 1;
     [Tooltip("Animation reverses after one use, then back again")]
     public bool flipFlop = true;
@@ -60,7 +61,7 @@ public class Rotator : InteractableBlock {
 
             while (Quaternion.Angle(transform.rotation, startRotation) < (90))
             {
-                transform.Rotate(rotationVector, _clockwise ? speed : -speed);
+                transform.Rotate(rotationVector, _clockwise ? speed * Time.deltaTime : -speed * Time.deltaTime);    
                 yield return null;
             }
 
