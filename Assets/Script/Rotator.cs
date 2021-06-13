@@ -24,9 +24,7 @@ public class Rotator : InteractableBlock {
     }
     public override void Update()
     {
-        base.Update();
-       /* if (Input.GetKeyDown(KeyCode.Space) && !isRotating)
-            StartCoroutine(Rotate(clockwise));   */    
+        base.Update(); 
     }
 
     public override void Activate()
@@ -40,8 +38,6 @@ public class Rotator : InteractableBlock {
     {
         for (int i = 0; i < times; i++)
         {
-            
-
             isRotating = true;
             Vector3 rotationVector;
 
